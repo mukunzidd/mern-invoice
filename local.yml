@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  api:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/local/express/Dockerfile
+    volumes:
+      - /app/node_modules
+      - .:/app
+    depends_on:
+      - mongodb
+    ports:
+      - "1994:1994"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      MONGO_URI: mongodv://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb
+      FORCE_COLOR: 1
+    networks:
+      - invoice_net
+  
+  mongodb:
+    image: mongo:5.0.6-focal
+    restart: always
+    ports:
+      - "27917:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    networks:
+      - invoice_net
+    volumes:
+      - mongodb-data:/data/db
+    
+  mongo-express:
+    image: mongo-express:0.54.0
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123456
+    networks:
+      - invoice_net
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+    networks:
+      - invoice_net
+  
+networks:
+      invoice_net:
+        driver: bridge
+
+volumes:
+  mongodb-data:
