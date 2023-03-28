@@ -1,0 +1,46 @@
+{
+  "name": "mern-invoice",
+  "version": "1.0.0",
+  "description": "An MERN stack Invoicing",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukunzidd/mern-invoice.git"
+  },
+  "keywords": [
+    "MERN",
+    "Invoice",
+    "RTK",
+    "Docker"
+  ],
+  "author": "Dodo Mknz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukunzidd/mern-invoice/issues"
+  },
+  "homepage": "https://github.com/mukunzidd/mern-invoice#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chalk": "^5.2.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^6.7.0",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.3",
+    "morgan": "^1.10.0",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
